@@ -198,4 +198,54 @@ function extractWordInfo(entries) {
   };
 }
 
+// ---------- Building the page ----------
 
+function buildSynonyms(synonyms) {
+  if (synonyms.length === 0) {
+    return createElement('p', { className: 'no-synonyms', text: 'No synonyms available.' });
+  }
+
+  const wrapper = createElement('div', { className: 'synonyms' });
+  wrapper.appendChild(createElement('span', { className: 'synonyms-label', text: 'Synonyms:' }));
+
+  const list = createElement('ul', { className: 'chip-list', attrs: { 'aria-label': 'Synonyms' } });
+  synonyms.forEach((synonym) => {
+    const item = createElement('li', { className: 'chip' });
+    // Clicking a synonym searches for it (handled by one listener on the results area)
+    const button = createElement('button', {
+      className: 'synonym-button',
+      text: synonym,
+      attrs: { type: 'button', 'data-word': synonym, 'aria-label': `Look up ${synonym}` },
+    });
+    item.appendChild(button);
+    list.appendChild(item);
+  });
+  wrapper.appendChild(list);
+  return wrapper;
+}
+
+function buildMeaning(meaning) {
+  const section = createElement('section', { className: 'meaning' });
+  section.appendChild(createElement('h3', { className: 'part-of-speech', text: meaning.partOfSpeech }));
+
+  const list = createElement('ol', { className: 'definition-list' });
+  meaning.definitions.forEach((item) => {
+    const entry = createElement('li');
+    entry.appendChild(createElement('p', { text: item.definition }));
+    if (item.example) {
+      entry.appendChild(createElement('p', { className: 'example', text: `"${item.example}"` }));
+    }
+    list.appendChild(entry);
+  });
+  section.appendChild(list);
+  section.appendChild(buildSynonyms(meaning.synonyms));
+  return section;
+}
+
+function renderWordCard(info) {
+  results.textContent = '';
+  currentWord = info.word.toLowerCase();
+
+  const card = createElement('article', { className: 'word-card', attrs: { 'aria-label': `Definition of ${info.word}` } });
+
+  
