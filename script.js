@@ -146,6 +146,7 @@ button {
 }
 .search-form button:hover:not(:disabled) { transform: translateY(-2px); }
 .search-form button:disabled { opacity: 0.6; cursor: wait; }
+
 /* ---------- Messages ---------- */
 .message {
   margin-top: 0.8rem;
@@ -154,3 +155,17 @@ button {
 }
 .message.error { background: var(--error-bg); color: var(--error-text); }
 .message.status { background: var(--accent-soft); color: var(--text); }
+
+/* ---------- Word card ---------- */
+.word-card {
+  padding: 1.5rem;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  animation: fade-in 0.35s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+
+
