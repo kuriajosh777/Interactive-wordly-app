@@ -432,3 +432,6 @@ themeToggle.addEventListener('click', () => {
   writeStorage(THEME_KEY, nextTheme);
 });
 
+// ---------- Start ----------
+initTheme();
+renderSavedWords();
