@@ -171,4 +171,31 @@ function extractWordInfo(entries) {
         example: item.example || '',
       }));
 
-         
+  // Synonyms can sit on the meaning or on each definition. Combine them without repeats.
+      const synonyms = new Set(meaning.synonyms || []);
+      (meaning.definitions || []).forEach((item) => {
+        (item.synonyms || []).forEach((synonym) => synonyms.add(synonym));
+      });
+
+      return {
+        partOfSpeech: meaning.partOfSpeech || 'other',
+        definitions,
+        synonyms: [...synonyms].slice(0, MAX_SYNONYMS),
+      };
+    })
+    .filter((meaning) => meaning.definitions.length > 0);
+
+  if (meanings.length === 0) {
+    throw new Error(`The dictionary has no usable definitions for "${first.word}".`);
+  }
+
+  return {
+    word: first.word,
+    phonetic: phoneticText,
+    audioUrl,
+    meanings,
+    sourceUrl: (first.sourceUrls && first.sourceUrls[0]) || '',
+  };
+}
+
+
