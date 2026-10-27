@@ -118,4 +118,32 @@ function validateInput(rawValue) {
   }
   return { word };
 }
+// ---------- Fetching ----------
+
+async function fetchWordData(word) {
+  // Cancel any earlier request that is still running, so old results can't overwrite new ones
+  if (currentRequest) currentRequest.abort();
+  currentRequest = new AbortController();
+
+  const response = await fetch(`${API_URL}${encodeURIComponent(word)}`, {
+    signal: currentRequest.signal,
+  });
+
+  // fetch() only rejects on network failures, so check the HTTP status ourselves
+  if (response.status === 404) {
+    throw new Error(`No definitions found for "${word}". Check the spelling or try another word.`);
+  }
+  if (!response.ok) {
+    throw new Error(`The dictionary service returned an error (status ${response.status}). Please try again.`);
+  }
+
+  const data = await response.json();
+
+  // Make sure the data has the shape we expect before using it
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error(`No definitions found for "${word}".`);
+  }
+  return data;
+}
+
 
