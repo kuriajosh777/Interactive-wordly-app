@@ -146,3 +146,11 @@ button {
 }
 .search-form button:hover:not(:disabled) { transform: translateY(-2px); }
 .search-form button:disabled { opacity: 0.6; cursor: wait; }
+/* ---------- Messages ---------- */
+.message {
+  margin-top: 0.8rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+}
+.message.error { background: var(--error-bg); color: var(--error-text); }
+.message.status { background: var(--accent-soft); color: var(--text); }
