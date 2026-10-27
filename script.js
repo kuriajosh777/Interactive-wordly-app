@@ -257,3 +257,19 @@ button {
 }
 .chip button:hover { color: var(--accent); }
 .chip .chip-remove { padding-left: 0.2rem; padding-right: 0.7rem; color: var(--muted); }
+/* ---------- Saved section ---------- */
+.saved-section h2 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+.muted { color: var(--muted); }
+
+/* ---------- Footer ---------- */
+.site-footer { padding: 1.5rem 1rem 2rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  .search-form { flex-direction: column; }
+  .word-title { font-size: 1.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
