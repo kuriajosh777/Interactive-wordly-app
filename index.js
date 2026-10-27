@@ -248,4 +248,58 @@ function renderWordCard(info) {
 
   const card = createElement('article', { className: 'word-card', attrs: { 'aria-label': `Definition of ${info.word}` } });
 
+// Header: word, phonetic spelling and the action buttons
+  const header = createElement('div', { className: 'word-header' });
+  const titleBox = createElement('div');
+  titleBox.appendChild(createElement('h2', { className: 'word-title', text: info.word }));
+  if (info.phonetic) {
+    titleBox.appendChild(createElement('p', { className: 'phonetic', text: info.phonetic }));
+  }
+  header.appendChild(titleBox);
+
+  const actions = createElement('div', { className: 'word-actions' });
+
+  const audioButton = createElement('button', {
+    className: 'pill-button',
+    text: '🔊 Listen',
+    attrs: { type: 'button', 'aria-label': `Play pronunciation of ${info.word}` },
+  });
+  if (info.audioUrl) {
+    audioButton.addEventListener('click', () => playAudio(info.audioUrl, card));
+  } else {
+    audioButton.disabled = true;
+    audioButton.setAttribute('aria-label', 'No pronunciation audio available');
+  }
+  actions.appendChild(audioButton);
+
+  const saveButton = createElement('button', {
+    className: 'pill-button save-button',
+    attrs: { type: 'button' },
+  });
+  saveButton.addEventListener('click', () => toggleSaved(currentWord));
+  actions.appendChild(saveButton);
+
+  header.appendChild(actions);
+  card.appendChild(header);
+
+  if (!info.audioUrl) {
+    card.appendChild(createElement('p', { className: 'audio-note', text: 'Pronunciation audio is not available for this word.' }));
+  }
+
+  info.meanings.forEach((meaning) => card.appendChild(buildMeaning(meaning)));
+
+  if (info.sourceUrl) {
+    const source = createElement('p', { className: 'source', text: 'Source: ' });
+    source.appendChild(createElement('a', {
+      text: info.sourceUrl,
+      attrs: { href: info.sourceUrl, target: '_blank', rel: 'noopener noreferrer' },
+    }));
+    card.appendChild(source);
+  }
+
+  results.appendChild(card);
+  updateSavedState();
+}
+
+
   
