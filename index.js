@@ -147,3 +147,28 @@ async function fetchWordData(word) {
 }
 
 
+// ---------- Reading the API data ----------
+
+// The API can return several entries for one word. Merge them into one simple object.
+function extractWordInfo(entries) {
+  const first = entries[0];
+  const phonetics = entries.flatMap((entry) => entry.phonetics || []);
+
+  const phoneticText =
+    first.phonetic || (phonetics.find((item) => item.text) || {}).text || '';
+
+  // Audio is missing for some words. Some links start with "//", so add https:
+  const audioItem = phonetics.find((item) => item.audio);
+  const audioUrl = audioItem
+    ? audioItem.audio.startsWith('//') ? `https:${audioItem.audio}` : audioItem.audio
+    : '';
+
+  const meanings = entries
+    .flatMap((entry) => entry.meanings || [])
+    .map((meaning) => {
+      const definitions = (meaning.definitions || []).map((item) => ({
+        definition: item.definition,
+        example: item.example || '',
+      }));
+
+         
