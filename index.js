@@ -388,3 +388,18 @@ async function searchWord(rawValue) {
     results.textContent = '';
     currentWord = null;
   
+// fetch() throws a TypeError when the network is down or the request is blocked
+    const isNetworkError = caughtError instanceof TypeError;
+    showError(
+      isNetworkError
+        ? 'Could not reach the dictionary. Check your internet connection and try again.'
+        : caughtError.message
+    );
+  } finally {
+    // If a newer search has started, it is responsible for the loading state
+    if (searchId === latestSearchId) {
+      setLoading(false);
+    }
+  }
+}
+
