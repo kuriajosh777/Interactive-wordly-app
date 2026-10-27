@@ -62,4 +62,39 @@ a { color: var(--accent); }
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+/* ---------- Header ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 0;
+}
 
+.brand { display: flex; align-items: center; gap: 0.6rem; }
+.brand h1 { font-size: 1.6rem; letter-spacing: 0.02em; }
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 800;
+}
+
+.icon-button {
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.icon-button:hover { transform: scale(1.08); border-color: var(--accent); }
