@@ -362,5 +362,29 @@ function playAudio(url, card) {
   });
 }
 
+// The main search routine
+async function searchWord(rawValue) {
+  clearError();
 
+  const { word, error } = validateInput(rawValue);
+  if (error) {
+    showError(error);
+    wordInput.focus();
+    return;
+  }
+
+  wordInput.value = word;
+  const searchId = ++latestSearchId;
+  setLoading(true, word);
+
+  try {
+    const entries = await fetchWordData(word);
+    renderWordCard(extractWordInfo(entries));
+  } catch (caughtError) {
+    // An aborted request means a newer search replaced this one, so stay quiet
+    if (caughtError.name === 'AbortError') return;
+
+    console.log('Search failed:', caughtError.message);
+    results.textContent = '';
+    currentWord = null;
   
