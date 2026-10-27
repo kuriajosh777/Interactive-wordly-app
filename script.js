@@ -168,4 +168,67 @@ button {
 }
 
 
+/* A saved word gets a highlighted card */
+.word-card.is-saved {
+  background: var(--saved);
+  border-color: var(--saved-border);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.word-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.word-title { font-size: 2.2rem; line-height: 1.2; word-break: break-word; }
+.phonetic { color: var(--muted); font-size: 1.1rem; }
+
+.word-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.pill-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.pill-button:hover:not(:disabled) { background: var(--accent); color: var(--accent-text); }
+.pill-button:disabled { opacity: 0.55; cursor: not-allowed; }
+.pill-button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+
+.audio-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem; }
+
+.meaning { margin-top: 1.4rem; }
+
+.part-of-speech {
+  display: inline-block;
+  padding: 0.15rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.definition-list { margin: 0.7rem 0 0 1.25rem; padding: 0; list-style: decimal; }
+.definition-list li { margin-bottom: 0.7rem; padding-left: 0.2rem; }
+.example { margin-top: 0.15rem; color: var(--muted); font-style: italic; }
+
+.synonyms { margin-top: 0.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.synonyms-label { color: var(--muted); font-size: 0.9rem; font-weight: 600; }
+
+.no-synonyms { margin-top: 0.4rem; color: var(--muted); font-size: 0.9rem; }
+
+.source { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); }
+
 
