@@ -91,3 +91,14 @@ function clearStatus() {
   statusMessage.textContent = '';
   statusMessage.classList.add('hidden');
 }
+
+// Disable the form while a request is running so it can't be spammed
+function setLoading(isLoading, word = '') {
+  searchButton.disabled = isLoading;
+  searchButton.textContent = isLoading ? 'Searching...' : 'Search';
+  if (isLoading) {
+    showStatus(`Looking up "${word}"...`);
+  } else {
+    clearStatus();
+  }
+}
