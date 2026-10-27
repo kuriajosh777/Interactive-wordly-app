@@ -301,5 +301,66 @@ function renderWordCard(info) {
   updateSavedState();
 }
 
+// Show or hide the highlight and update the Save button for the current word
+function updateSavedState() {
+  const card = results.querySelector('.word-card');
+  if (!card) return;
+
+  const isSaved = savedWords.includes(currentWord);
+  card.classList.toggle('is-saved', isSaved);
+
+  const saveButton = card.querySelector('.save-button');
+  saveButton.textContent = isSaved ? '★ Saved' : '☆ Save word';
+  saveButton.setAttribute('aria-pressed', String(isSaved));
+  saveButton.setAttribute('aria-label', isSaved ? `Remove ${currentWord} from saved words` : `Save ${currentWord}`);
+}
+
+function renderSavedWords() {
+  savedList.textContent = '';
+  savedEmpty.classList.toggle('hidden', savedWords.length > 0);
+
+  savedWords.forEach((word) => {
+    const item = createElement('li', { className: 'chip' });
+    item.appendChild(createElement('button', {
+      className: 'saved-word',
+      text: word,
+      attrs: { type: 'button', 'data-word': word, 'aria-label': `Look up ${word}` },
+    }));
+    item.appendChild(createElement('button', {
+      className: 'chip-remove',
+      text: '✕',
+      attrs: { type: 'button', 'data-remove': word, 'aria-label': `Remove ${word} from saved words` },
+    }));
+    savedList.appendChild(item);
+  });
+}
+
+// ---------- Actions ----------
+
+function toggleSaved(word) {
+  if (savedWords.includes(word)) {
+    savedWords = savedWords.filter((saved) => saved !== word);
+  } else {
+    savedWords = [...savedWords, word];
+  }
+  writeStorage(SAVED_KEY, JSON.stringify(savedWords));
+  renderSavedWords();
+  updateSavedState();
+}
+
+function playAudio(url, card) {
+  // Remove an older audio error before trying again
+  const oldNote = card.querySelector('.audio-error');
+  if (oldNote) oldNote.remove();
+
+  const audio = new Audio(url);
+  audio.play().catch((error) => {
+    console.log('Audio could not be played:', error.message);
+    card.querySelector('.word-header').after(
+      createElement('p', { className: 'audio-note audio-error', text: 'Sorry, the audio could not be played.', attrs: { role: 'alert' } })
+    );
+  });
+}
+
 
   
