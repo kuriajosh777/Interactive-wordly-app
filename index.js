@@ -70,3 +70,24 @@ function loadSavedWords() {
   }
 }
 
+// ---------- Messages ----------
+
+function showError(message) {
+  errorMessage.textContent = message;
+  errorMessage.classList.remove('hidden');
+}
+
+function clearError() {
+  errorMessage.textContent = '';
+  errorMessage.classList.add('hidden');
+}
+
+function showStatus(message) {
+  statusMessage.textContent = message;
+  statusMessage.classList.remove('hidden');
+}
+
+function clearStatus() {
+  statusMessage.textContent = '';
+  statusMessage.classList.add('hidden');
+}
