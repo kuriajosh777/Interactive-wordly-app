@@ -44,3 +44,29 @@ function createElement(tag, { className, text, attrs } = {}) {
   return element;
 }
 
+// localStorage can be blocked (private mode, strict settings), so never trust it blindly
+function readStorage(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+function writeStorage(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (error) {
+    console.log('Could not save to localStorage:', error.message);
+  }
+}
+
+function loadSavedWords() {
+  try {
+    const stored = JSON.parse(readStorage(SAVED_KEY));
+    return Array.isArray(stored) ? stored.filter((word) => typeof word === 'string') : [];
+  } catch (error) {
+    return [];
+  }
+}
+
