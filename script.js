@@ -98,3 +98,51 @@ a { color: var(--accent); }
   transition: transform 0.15s ease, border-color 0.15s ease;
 }
 .icon-button:hover { transform: scale(1.08); border-color: var(--accent); }
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.tagline { color: var(--muted); margin-bottom: 0.9rem; }
+
+/* ---------- Search form ---------- */
+.search-form { display: flex; gap: 0.6rem; }
+
+.search-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.05rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.search-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.search-form button {
+  padding: 0.85rem 1.4rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.search-form button:hover:not(:disabled) { transform: translateY(-2px); }
+.search-form button:disabled { opacity: 0.6; cursor: wait; }
