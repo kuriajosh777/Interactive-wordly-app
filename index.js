@@ -102,3 +102,20 @@ function setLoading(isLoading, word = '') {
     clearStatus();
   }
 }
+// ---------- Input validation ----------
+
+// Returns { word } for good input or { error } with a friendly message
+function validateInput(rawValue) {
+  const word = rawValue.trim().toLowerCase();
+
+  if (word === '') {
+    return { error: 'Please type a word to search for.' };
+  }
+ 
+ // Letters, plus apostrophes, hyphens and spaces inside the word (e.g. "don't", "well-known")
+  if (!/^[a-z][a-z' -]*$/.test(word)) {
+    return { error: 'Please use letters only. Numbers and symbols are not supported.' };
+  }
+  return { word };
+}
+
