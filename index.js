@@ -19,3 +19,28 @@ const savedEmpty = document.querySelector('#saved-empty');
 const themeToggle = document.querySelector('#theme-toggle');
 const themeIcon = document.querySelector('#theme-toggle-icon');
 
+// ---------- App state ----------
+let savedWords = loadSavedWords();
+let currentWord = null; // the word currently shown in the results card
+let currentRequest = null; 
+// AbortController of the request in progress
+let latestSearchId = 0; 
+// lets an older search know a newer one has started
+
+
+// ---------- Small helpers ----------
+
+
+// Create an element with optional class, text and attributes.
+
+// Text always goes in through textContent, so API data can never inject HTML.
+function createElement(tag, { className, text, attrs } = {}) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  if (attrs) {
+    Object.entries(attrs).forEach(([name, value]) => element.setAttribute(name, value));
+  }
+  return element;
+}
+
