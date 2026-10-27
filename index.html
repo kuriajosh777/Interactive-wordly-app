@@ -1,1 +1,63 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wordly: look up definitions, pronunciation, synonyms and audio for any English word." />
+  <title>Wordly | Dictionary</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">W</span>
+      <h1>Wordly</h1>
+    </div>
+    <button id="theme-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Switch to dark theme">
+      <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="search-section" aria-labelledby="search-heading">
+      <h2 id="search-heading" class="visually-hidden">Search for a word</h2>
+      <p class="tagline">Look up definitions, pronunciation and synonyms.</p>
+
+      <form id="search-form" class="search-form" role="search" novalidate>
+        <label for="word-input" class="visually-hidden">Enter an English word</label>
+        <input
+          id="word-input"
+          name="word"
+          type="search"
+          placeholder="Try &quot;serendipity&quot;"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-describedby="error-message"
+        />
+        <button id="search-button" type="submit">Search</button>
+      </form>
+
+      <!-- Errors and loading messages are announced to screen readers -->
+      <p id="error-message" class="message error hidden" role="alert"></p>
+      <p id="status-message" class="message status hidden" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="results" class="results" aria-live="polite" aria-label="Search results">
+      <!-- The word card is built here by script.js -->
+    </section>
+
+    <section class="saved-section" aria-labelledby="saved-heading">
+      <h2 id="saved-heading">Saved words</h2>
+      <p id="saved-empty" class="muted">No saved words yet. Search for a word and press Save.</p>
+      <ul id="saved-list" class="chip-list" aria-label="Saved words"></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Definitions from the <a href="https://dictionaryapi.dev/" target="_blank" rel="noopener noreferrer">Free Dictionary API</a>.</p>
+  </footer>
+</body>
+</html>
