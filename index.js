@@ -403,3 +403,32 @@ async function searchWord(rawValue) {
   }
 }
 
+// ---------- Event listeners ----------
+
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault(); // stop the page from reloading
+  searchWord(wordInput.value);
+});
+
+// One listener handles every synonym button, even ones created later
+results.addEventListener('click', (event) => {
+  const button = event.target.closest('.synonym-button');
+  if (button) searchWord(button.dataset.word);
+});
+
+savedList.addEventListener('click', (event) => {
+  const removeButton = event.target.closest('[data-remove]');
+  if (removeButton) {
+    toggleSaved(removeButton.dataset.remove);
+    return;
+  }
+  const wordButton = event.target.closest('.saved-word');
+  if (wordButton) searchWord(wordButton.dataset.word);
+});
+
+themeToggle.addEventListener('click', () => {
+  const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(nextTheme);
+  writeStorage(THEME_KEY, nextTheme);
+});
+
