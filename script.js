@@ -232,3 +232,28 @@ button {
 .source { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); }
 
 
+.source a { word-break: break-all; }
+
+/* ---------- Chips (synonyms and saved words) ---------- */
+.chip-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  overflow: hidden;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.chip:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+.chip button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0.3rem 0.8rem;
+}
+.chip button:hover { color: var(--accent); }
+.chip .chip-remove { padding-left: 0.2rem; padding-right: 0.7rem; color: var(--muted); }
